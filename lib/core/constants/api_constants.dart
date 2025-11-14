@@ -51,11 +51,11 @@ class ApiConstants {
   static String groupMemberById(String orgId, String groupId, String memberId) =>
       '/organizations/$orgId/groups/$groupId/members/$memberId';
 
-  // Endpoints - Ubicaciones
-  static const String locations = '/locations';
-  static const String locationsBatch = '/locations/batch';
-  static String locationsCurrent(String userId) => '/locations/current/$userId';
-  static String locationsHistory(String userId) => '/locations/history/$userId';
+  // Endpoints - Ubicaciones (Tracking)
+  static const String sendLocation = '/locations';
+  static const String sendLocationBatch = '/locations/batch';
+  static String getCurrentLocation(String userId) => '/locations/current/$userId';
+  static String getLocationHistory(String userId) => '/locations/history/$userId';
   static String organizationLocationsLive(String orgId) =>
       '/organizations/$orgId/locations/live';
   static String organizationLocationsHistory(String orgId) =>
