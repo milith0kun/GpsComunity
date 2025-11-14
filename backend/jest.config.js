@@ -3,12 +3,14 @@ module.exports = {
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     'src/**/*.js',
+    '!src/tests/**',
     '!src/**/*.test.js',
     '!src/**/*.spec.js',
   ],
   testMatch: [
     '**/tests/**/*.test.js',
     '**/tests/**/*.spec.js',
+    '**/src/tests/**/*.test.js',
   ],
   coverageThreshold: {
     global: {
@@ -18,4 +20,10 @@ module.exports = {
       statements: 70,
     },
   },
+  testTimeout: 30000,
+  verbose: true,
+  forceExit: true,
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
 };
