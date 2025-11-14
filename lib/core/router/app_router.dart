@@ -12,6 +12,18 @@ import '../../features/home/presentation/pages/home_page.dart';
 // Tracking pages
 import '../../features/tracking/presentation/pages/tracking_page.dart';
 
+// Organization pages
+import '../../features/organization/presentation/pages/organizations_page.dart';
+import '../../features/organization/presentation/pages/create_organization_page.dart';
+import '../../features/organization/presentation/pages/organization_detail_page.dart';
+import '../../features/organization/presentation/pages/members_page.dart';
+
+// Profile pages
+import '../../features/profile/presentation/pages/profile_page.dart';
+
+// Settings pages
+import '../../features/settings/presentation/pages/settings_page.dart';
+
 /// Configuración de rutas de la aplicación
 class AppRouter {
   static const String splash = '/';
@@ -139,6 +151,7 @@ class AppRouter {
 // Páginas temporales (placeholders para páginas no implementadas)
 // ============================================================================
 
+/// Placeholder para MapPage - Pendiente de implementar con Google Maps
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
 
@@ -146,120 +159,42 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Mapa')),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.map, size: 64, color: Colors.grey),
-            SizedBox(height: 16),
-            Text('Mapa - Pendiente de implementar'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class OrganizationsPage extends StatelessWidget {
-  const OrganizationsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Organizaciones')),
-      body: const Center(
-        child: Text('Lista de Organizaciones - Pendiente'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('${AppRouter.organizations}/create'),
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class CreateOrganizationPage extends StatelessWidget {
-  const CreateOrganizationPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Crear Organización')),
-      body: const Center(
-        child: Text('Formulario de Creación - Pendiente'),
-      ),
-    );
-  }
-}
-
-class OrganizationDetailPage extends StatelessWidget {
-  final String organizationId;
-
-  const OrganizationDetailPage({super.key, required this.organizationId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Detalle de Organización')),
       body: Center(
-        child: Text('Organización ID: $organizationId - Pendiente'),
-      ),
-    );
-  }
-}
-
-class MembersPage extends StatelessWidget {
-  final String organizationId;
-
-  const MembersPage({super.key, required this.organizationId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Miembros')),
-      body: Center(
-        child: Text('Miembros de organización: $organizationId - Pendiente'),
-      ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Perfil')),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.person, size: 64, color: Colors.grey),
-            SizedBox(height: 16),
-            Text('Mi Perfil - Pendiente'),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Configuración')),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.settings, size: 64, color: Colors.grey),
-            SizedBox(height: 16),
-            Text('Configuración de la App - Pendiente'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.map,
+                size: 80,
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Vista de Mapa',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Próximamente verás la ubicación de todos los miembros en tiempo real',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+              OutlinedButton.icon(
+                onPressed: () {
+                  // TODO: Implementar vista de mapa con Google Maps o Mapbox
+                },
+                icon: const Icon(Icons.explore),
+                label: const Text('Explorar (Próximamente)'),
+              ),
+            ],
+          ),
         ),
       ),
     );
