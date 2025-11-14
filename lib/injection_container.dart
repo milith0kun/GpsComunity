@@ -33,6 +33,11 @@ import 'features/organization/domain/usecases/get_members_usecase.dart';
 import 'features/organization/domain/usecases/get_my_organizations_usecase.dart';
 import 'features/organization/domain/usecases/invite_member_usecase.dart';
 import 'features/organization/presentation/bloc/organization_bloc.dart';
+import 'features/map/data/datasources/map_remote_datasource.dart';
+import 'features/map/data/repositories/map_repository_impl.dart';
+import 'features/map/domain/repositories/map_repository.dart';
+import 'features/map/domain/usecases/get_real_time_markers_usecase.dart';
+import 'features/map/presentation/bloc/map_bloc.dart';
 
 /// Service Locator global
 final sl = GetIt.instance;
@@ -86,7 +91,7 @@ Future<void> initializeDependencies() async {
   await _initAuth();
   await _initTracking();
   await _initOrganization();
-  // await _initMap();
+  await _initMap();
 }
 
 /// Inicializa dependencias de autenticación
@@ -169,7 +174,28 @@ Future<void> _initTracking() async {
 
 /// Inicializa dependencias de mapa
 Future<void> _initMap() async {
-  // TODO: Implementar
+  // Data sources
+  sl.registerLazySingleton<MapRemoteDataSource>(
+    () => MapRemoteDataSourceImpl(sl()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<MapRepository>(
+    () => MapRepositoryImpl(
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  // Use cases
+  sl.registerLazySingleton(() => GetRealTimeMarkersUseCase(sl()));
+
+  // BLoC
+  sl.registerFactory(
+    () => MapBloc(
+      getRealTimeMarkersUseCase: sl(),
+    ),
+  );
 }
 
 /// Inicializa dependencias de organización
