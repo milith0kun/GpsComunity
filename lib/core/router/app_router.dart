@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+// Auth pages
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+
+// Home pages
+import '../../features/home/presentation/pages/home_page.dart';
+
+// Tracking pages
+import '../../features/tracking/presentation/pages/tracking_page.dart';
 
 /// Configuración de rutas de la aplicación
 class AppRouter {
@@ -115,7 +124,7 @@ class AppRouter {
     ],
 
     // Manejo de errores
-    errorBuilder: (context, state) => ErrorPage(error: state.error),
+    errorBuilder: (context, state) => _ErrorPage(error: state.error),
 
     // Redirección basada en autenticación
     redirect: (context, state) {
@@ -127,78 +136,8 @@ class AppRouter {
 }
 
 // ============================================================================
-// Páginas temporales (placeholders)
+// Páginas temporales (placeholders para páginas no implementadas)
 // ============================================================================
-
-class SplashPage extends StatelessWidget {
-  const SplashPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.location_on, size: 100, color: Colors.blue),
-            const SizedBox(height: 20),
-            const Text(
-              'GPS Community',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.login),
-              child: const Text('Comenzar'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Registro')),
-      body: const Center(child: Text('Página de Registro')),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Inicio')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.map),
-              child: const Text('Ir al Mapa'),
-            ),
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.organizations),
-              child: const Text('Organizaciones'),
-            ),
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.tracking),
-              child: const Text('Tracking'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
@@ -207,7 +146,16 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Mapa')),
-      body: const Center(child: Text('Mapa - Pendiente de implementar')),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.map, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text('Mapa - Pendiente de implementar'),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -219,7 +167,9 @@ class OrganizationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Organizaciones')),
-      body: const Center(child: Text('Lista de Organizaciones')),
+      body: const Center(
+        child: Text('Lista de Organizaciones - Pendiente'),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('${AppRouter.organizations}/create'),
         child: const Icon(Icons.add),
@@ -235,7 +185,9 @@ class CreateOrganizationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Crear Organización')),
-      body: const Center(child: Text('Formulario de Creación')),
+      body: const Center(
+        child: Text('Formulario de Creación - Pendiente'),
+      ),
     );
   }
 }
@@ -249,7 +201,9 @@ class OrganizationDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Detalle de Organización')),
-      body: Center(child: Text('Organización ID: $organizationId')),
+      body: Center(
+        child: Text('Organización ID: $organizationId - Pendiente'),
+      ),
     );
   }
 }
@@ -264,20 +218,8 @@ class MembersPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Miembros')),
       body: Center(
-        child: Text('Miembros de organización: $organizationId'),
+        child: Text('Miembros de organización: $organizationId - Pendiente'),
       ),
-    );
-  }
-}
-
-class TrackingPage extends StatelessWidget {
-  const TrackingPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Tracking')),
-      body: const Center(child: Text('Control de Tracking')),
     );
   }
 }
@@ -289,7 +231,16 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Perfil')),
-      body: const Center(child: Text('Mi Perfil')),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.person, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text('Mi Perfil - Pendiente'),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -301,15 +252,24 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Configuración')),
-      body: const Center(child: Text('Configuración de la App')),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.settings, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text('Configuración de la App - Pendiente'),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class ErrorPage extends StatelessWidget {
+class _ErrorPage extends StatelessWidget {
   final Exception? error;
 
-  const ErrorPage({super.key, this.error});
+  const _ErrorPage({this.error});
 
   @override
   Widget build(BuildContext context) {
