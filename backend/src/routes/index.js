@@ -18,8 +18,12 @@ router.get('/health', (req, res) => {
 
 // Importar rutas
 const authRoutes = require('./auth.routes');
-const trackingRoutes = require('./tracking.routes');
+const userRoutes = require('./user.routes');
 const organizationRoutes = require('./organization.routes');
+const memberRoutes = require('./member.routes');
+const trackingRoutes = require('./tracking.routes');
+const geofenceRoutes = require('./geofence.routes');
+const alertRoutes = require('./alert.routes');
 
 // Ruta de bienvenida
 router.get('/', (req, res) => {
@@ -33,14 +37,21 @@ router.get('/', (req, res) => {
       auth: '/api/v1/auth',
       users: '/api/v1/users',
       organizations: '/api/v1/organizations',
+      members: '/api/v1/members',
       locations: '/api/v1/locations',
+      geofences: '/api/v1/geofences',
+      alerts: '/api/v1/alerts',
     },
   });
 });
 
 // Montar rutas
 router.use('/auth', authRoutes);
-router.use('/locations', trackingRoutes);
+router.use('/users', userRoutes);
 router.use('/organizations', organizationRoutes);
+router.use('/members', memberRoutes);
+router.use('/locations', trackingRoutes);
+router.use('/geofences', geofenceRoutes);
+router.use('/alerts', alertRoutes);
 
 module.exports = router;
