@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+// Auth pages
 import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+
+// Home pages
+import '../../features/home/presentation/pages/home_page.dart';
+
+// Tracking pages
+import '../../features/tracking/presentation/pages/tracking_page.dart';
+
+// Organization pages
+import '../../features/organization/presentation/pages/organizations_page.dart';
+import '../../features/organization/presentation/pages/create_organization_page.dart';
+import '../../features/organization/presentation/pages/organization_detail_page.dart';
+import '../../features/organization/presentation/pages/members_page.dart';
+
+// Profile pages
+import '../../features/profile/presentation/pages/profile_page.dart';
+
+// Settings pages
+import '../../features/settings/presentation/pages/settings_page.dart';
 
 /// Configuración de rutas de la aplicación
 class AppRouter {
@@ -115,7 +136,7 @@ class AppRouter {
     ],
 
     // Manejo de errores
-    errorBuilder: (context, state) => ErrorPage(error: state.error),
+    errorBuilder: (context, state) => _ErrorPage(error: state.error),
 
     // Redirección basada en autenticación
     redirect: (context, state) {
@@ -127,79 +148,10 @@ class AppRouter {
 }
 
 // ============================================================================
-// Páginas temporales (placeholders)
+// Páginas temporales (placeholders para páginas no implementadas)
 // ============================================================================
 
-class SplashPage extends StatelessWidget {
-  const SplashPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.location_on, size: 100, color: Colors.blue),
-            const SizedBox(height: 20),
-            const Text(
-              'GPS Community',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.login),
-              child: const Text('Comenzar'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Registro')),
-      body: const Center(child: Text('Página de Registro')),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Inicio')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.map),
-              child: const Text('Ir al Mapa'),
-            ),
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.organizations),
-              child: const Text('Organizaciones'),
-            ),
-            ElevatedButton(
-              onPressed: () => context.go(AppRouter.tracking),
-              child: const Text('Tracking'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
+/// Placeholder para MapPage - Pendiente de implementar con Google Maps
 class MapPage extends StatelessWidget {
   const MapPage({super.key});
 
@@ -207,109 +159,52 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Mapa')),
-      body: const Center(child: Text('Mapa - Pendiente de implementar')),
-    );
-  }
-}
-
-class OrganizationsPage extends StatelessWidget {
-  const OrganizationsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Organizaciones')),
-      body: const Center(child: Text('Lista de Organizaciones')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('${AppRouter.organizations}/create'),
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class CreateOrganizationPage extends StatelessWidget {
-  const CreateOrganizationPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Crear Organización')),
-      body: const Center(child: Text('Formulario de Creación')),
-    );
-  }
-}
-
-class OrganizationDetailPage extends StatelessWidget {
-  final String organizationId;
-
-  const OrganizationDetailPage({super.key, required this.organizationId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Detalle de Organización')),
-      body: Center(child: Text('Organización ID: $organizationId')),
-    );
-  }
-}
-
-class MembersPage extends StatelessWidget {
-  final String organizationId;
-
-  const MembersPage({super.key, required this.organizationId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Miembros')),
       body: Center(
-        child: Text('Miembros de organización: $organizationId'),
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.map,
+                size: 80,
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Vista de Mapa',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Próximamente verás la ubicación de todos los miembros en tiempo real',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+              OutlinedButton.icon(
+                onPressed: () {
+                  // TODO: Implementar vista de mapa con Google Maps o Mapbox
+                },
+                icon: const Icon(Icons.explore),
+                label: const Text('Explorar (Próximamente)'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
 
-class TrackingPage extends StatelessWidget {
-  const TrackingPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Tracking')),
-      body: const Center(child: Text('Control de Tracking')),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Perfil')),
-      body: const Center(child: Text('Mi Perfil')),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Configuración')),
-      body: const Center(child: Text('Configuración de la App')),
-    );
-  }
-}
-
-class ErrorPage extends StatelessWidget {
+class _ErrorPage extends StatelessWidget {
   final Exception? error;
 
-  const ErrorPage({super.key, this.error});
+  const _ErrorPage({this.error});
 
   @override
   Widget build(BuildContext context) {
