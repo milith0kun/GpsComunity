@@ -16,16 +16,10 @@ router.get('/health', (req, res) => {
   });
 });
 
-// TODO: Montar rutas de los diferentes módulos
-// const authRoutes = require('./auth.routes');
-// const userRoutes = require('./user.routes');
-// const organizationRoutes = require('./organization.routes');
-// const trackingRoutes = require('./tracking.routes');
-
-// router.use('/auth', authRoutes);
-// router.use('/users', userRoutes);
-// router.use('/organizations', organizationRoutes);
-// router.use('/locations', trackingRoutes);
+// Importar rutas
+const authRoutes = require('./auth.routes');
+const trackingRoutes = require('./tracking.routes');
+const organizationRoutes = require('./organization.routes');
 
 // Ruta de bienvenida
 router.get('/', (req, res) => {
@@ -43,5 +37,10 @@ router.get('/', (req, res) => {
     },
   });
 });
+
+// Montar rutas
+router.use('/auth', authRoutes);
+router.use('/locations', trackingRoutes);
+router.use('/organizations', organizationRoutes);
 
 module.exports = router;
